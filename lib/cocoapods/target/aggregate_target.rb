@@ -426,11 +426,11 @@ module Pod
       path.relative_path_from(sandbox.root).to_s
     end
 
-    def create_build_settings
+    def create_build_settings_by_config
       settings = {}
 
-      user_build_configurations.each_key do |configuration_name|
-        settings[configuration_name] = BuildSettings::AggregateTargetSettings.new(self, configuration_name)
+      user_build_configurations.each do |configuration_name, configuration|
+        settings[configuration_name] = BuildSettings::AggregateTargetSettings.new(self, configuration_name, :configuration => configuration)
       end
 
       settings
